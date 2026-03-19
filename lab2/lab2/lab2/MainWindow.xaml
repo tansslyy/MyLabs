@@ -27,43 +27,41 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10" Margin="5" 
-                Background="{StaticResource LinearPanelBrush}">
-            <StackPanel Orientation="Horizontal">
-                <Button ToolTip="Відкрити" Width="60" Height="60">
+        <Border Grid.Row="0" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10" Margin="5" Background="{StaticResource LinearPanelBrush}">
+            <StackPanel Orientation="Horizontal" FocusManager.IsFocusScope="True">
+                <Button ToolTip="Відкрити" Command="Open" Width="60" Height="60">
                     <Image Source="images/open.png" />
                 </Button>
-                <Button ToolTip="Стерти" Width="60" Height="60">
+                <Button ToolTip="Стерти" Command="Delete" Width="60" Height="60">
                     <Image Source="images/clear.png" />
                 </Button>
-                <Button ToolTip="Копіювати" Width="60" Height="60">
+                <Button ToolTip="Копіювати" Command="Copy" Width="60" Height="60">
                     <Image Source="images/copy.png" />
                 </Button>
-                <Button ToolTip="Вставити" Width="60" Height="60">
+                <Button ToolTip="Вставити" Command="Paste" Width="60" Height="60">
                     <Image Source="images/paste.png" />
                 </Button>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10" Margin="5" 
-                Background="{StaticResource LinearPanelBrush}">
+        <Border Grid.Row="1" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10" Margin="5" Background="{StaticResource LinearPanelBrush}">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" 
+                <TextBox x:Name="txtDocument" Grid.Row="0" 
                          VerticalScrollBarVisibility="Visible" 
                          TextWrapping="Wrap" 
-                         AcceptsReturn="True" />
+                         AcceptsReturn="True"
+                         FontSize="{Binding ElementName=fontSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,34" Grid.RowSpan="2" Text="івсіі" TextChanged="txtDocument_TextChanged_1" />
 
-                <DockPanel Grid.Row="1" Margin="0,10,0,0">
-                    <Button DockPanel.Dock="Bottom" 
-                            Style="{x:Null}"
-                            Content="OK" 
-                            Width="50" Height="25" 
-                            HorizontalAlignment="Center" />
+                <DockPanel Grid.Row="1" Margin="0,10,0,0" LastChildFill="False">
+                    <Label DockPanel.Dock="Left" Content="Розмір шрифту:" VerticalAlignment="Center"/>
+                    <Slider DockPanel.Dock="Left" Margin="4" MinWidth="100" Name="fontSlider" Maximum="100" Minimum="12" Value="24" VerticalAlignment="Center"/>
+
+                    <Button DockPanel.Dock="Right" Command="Save" Style="{x:Null}" Content="OK" Width="50" Height="25" HorizontalAlignment="Center" Margin="0,0,250,0"/>
                 </DockPanel>
             </Grid>
         </Border>

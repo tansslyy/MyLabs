@@ -20,5 +20,15 @@ namespace lab2
         {
             InitializeComponent();
         }
+
+        private void txtDocument_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDocument_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
