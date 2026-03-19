@@ -5,22 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lab2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Canvas Background="Cyan">
+        Title="TextEditor" Height="450" Width="800">
 
-        <Label Content="Label"
-               Canvas.Left="20"
-               Canvas.Top="20"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-        <TextBox Text="TextBox"
-                 Canvas.Left="40"
-                 Canvas.Top="40"/>
+        <Border Grid.Row="0" BorderBrush="#FFCBBEBE" BorderThickness="2" CornerRadius="10" Margin="5">
+            <StackPanel Orientation="Horizontal">
 
-        <Button Content="Button"
-                Canvas.Left="60"
-                Canvas.Top="60"/>
+                <Button ToolTip="Відкрити" Width="60" Height="60">
+                    <Image Source="images/open.png" />
+                </Button>
 
-    </Canvas>
+                <Button ToolTip="Стерти" Width="60" Height="60">
+                    <Image Source="images/clear.png" />
+                </Button>
 
+                <Button ToolTip="Копіювати" Width="60" Height="60">
+                    <Image Source="images/copy.png" />
+                </Button>
 
+                <Button ToolTip="Вставити" Width="60" Height="60">
+                    <Image Source="images/paste.png" />
+                </Button>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
 </Window>
