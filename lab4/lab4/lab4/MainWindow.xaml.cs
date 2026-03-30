@@ -1,29 +1,87 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
-namespace lab4 // Назва вашого проєкту
+namespace lab4 
 {
     public partial class MainWindow : Window
     {
+        DbAccess db = new DbAccess();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        // Метод для отримання контексту даних (Викликається при завантаженні вікна)
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Викликаємо клас, який ми створили в Завданні 2
-            DbAccess db = new DbAccess();
+            RefreshData();
+        }
 
-            // Передаємо таблицю як контекст даних для нашого списку
-            list.DataContext = db.GetClientsTable();
-
-            // Якщо в базі є дані, автоматично виділяємо першого клієнта
-            if (list.Items.Count > 0)
-            {
-                list.SelectedIndex = 0;
-            }
+        private void RefreshData()
+        {
+            list.ItemsSource = db.GetClientsTable().DefaultView;
+            if (list.Items.Count > 0) list.SelectedIndex = 0;
             list.Focus();
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Перевірка на порожні поля
+                if (string.IsNullOrWhiteSpace(txtId.Text) || string.IsNullOrWhiteSpace(txtName.Text))
+                {
+                    MessageBox.Show("Будь ласка, заповніть ID та Ім'я!");
+                    return;
+                }
+
+                db.AddClient(
+                    Convert.ToInt32(txtId.Text),
+                    txtName.Text,
+                    txtPhone.Text,
+                    txtAddress.Text,
+                    txtOrderAmount.Text // передаємо текст, метод сам виправить крапку
+                );
+
+                RefreshData();
+                MessageBox.Show("Клієнта додано!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка: " + ex.Message);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                db.UpdateClient(
+                    Convert.ToInt32(txtId.Text),
+                    txtName.Text,
+                    txtPhone.Text,
+                    txtAddress.Text,
+                    txtOrderAmount.Text
+                );
+                RefreshData();
+                MessageBox.Show("Дані оновлено!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка оновлення: " + ex.Message);
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int id = Convert.ToInt32(txtId.Text);
+                db.DeleteClient(id);
+                RefreshData();
+                MessageBox.Show("Запис видалено!");
+            }
+            catch (Exception ex) { MessageBox.Show("Помилка: " + ex.Message); }
         }
     }
 }
