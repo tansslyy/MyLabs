@@ -1,12 +1,38 @@
 ﻿<Window x:Class="lab5.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:lab5"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Довідник клієнтів" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Клієнти">
+                <DataGrid x:Name="ClientsGrid" AutoGenerateColumns="True" Margin="5"/>
+            </TabItem>
+            <TabItem Header="Компанії">
+                <DataGrid x:Name="CompaniesGrid" AutoGenerateColumns="True" Margin="5"/>
+            </TabItem>
+
+            <TabItem Header="Об'єднана таблиця">
+                <DataGrid x:Name="JoinedGrid" AutoGenerateColumns="True" Margin="5"/>
+            </TabItem>
+
+            <TabItem Header="Пошук клієнтів">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Введіть ім'я: " VerticalAlignment="Center"/>
+                        <TextBox x:Name="SearchTextBox" Width="200" TextChanged="SearchTextBox_TextChanged"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" x:Name="SearchGrid" AutoGenerateColumns="True" Margin="5"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Прибуткові клієнти">
+                <DataGrid x:Name="ProfitableGrid" AutoGenerateColumns="True" Margin="5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
